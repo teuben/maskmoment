@@ -7,15 +7,13 @@ Required packages: [spectral_cube](https://spectral-cube.readthedocs.io/), [radi
 
 **Note:** A serious error was uncovered on 9-Jun-2020 where the emom0 image was not being scaled to K, even though it was labeled as K km/s.  Please update any results obtained with code from before that time.
 
-Currently the code should **not** be installed in your site-packages area.  Just import
-it using
+You can install using pip, for example
 
-    import sys
-    sys.path.append('/path/to/maskmoment/')  
-    from maskmoment import maskmoment
+    pip install -e .
 
 and then call it using
 
+    from maskmoment import maskmoment
     maskmoment(img_fits, *other parameters*)
 
 ### Main Parameters (see code for additional options)
