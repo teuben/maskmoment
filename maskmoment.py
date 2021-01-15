@@ -48,6 +48,9 @@ def maskmoment(img_fits, gain_fits=None, rms_fits=None, mask_fits=None, outdir='
     snr_lo : float, optional
         The low significance sigma threshold at which to end mask dilation.
         Default: 2
+    minbeam : float, optional
+        Minimum velocity-integrated area of a mask region in units of the beam size.
+        Default: 1    
     snr_hi_minch : int, optional
         High significance mask is required to span at least this many channels
         at all pixels.
@@ -60,9 +63,6 @@ def maskmoment(img_fits, gain_fits=None, rms_fits=None, mask_fits=None, outdir='
         Each contiguous mask region must span at least this many channels (but 
         it's not necessary that every pixel in the region span this many channels).
         Default: 2
-    minbeam : float, optional
-        Minimum velocity-integrated area of a mask region in units of the beam size.
-        Default: 1
     nguard : tuple of two ints, optional
         Expand the final mask by nguard[0] pixels in the sky directions and
         nguard[1] channels in velocity.  Currently these values must be equal
@@ -95,10 +95,9 @@ def maskmoment(img_fits, gain_fits=None, rms_fits=None, mask_fits=None, outdir='
     mom2_minch : int, optional
         Minimum number of unmasked channels needed to calculate moment-2.
         Default: 2
-    perpixel : boolean, optional
-        Whether to calculate the rms per XY pixel instead of over whole image.
-        Set to True if you know there is a sensitivity variation across the image
-        but you don't have a gain cube - requires rms_fits and gain_fits unset.
+    altoutput : boolean, optional
+        Also output moment maps from a "direct" calculation instead of
+        the moment method in spectral_cube.  Mainly used for debugging.
         Default: False
     output_snr_cube : boolean, optional
         Output the cube in SNR units in addition to the moment maps.
@@ -117,13 +116,15 @@ def maskmoment(img_fits, gain_fits=None, rms_fits=None, mask_fits=None, outdir='
     to_kelvin : boolean, optional
         Output the moment maps in K units if the cube is in Jy/beam units.
         Default: True
-    altoutput : boolean, optional
-        Also output moment maps from a "direct" calculation instead of
-        the moment method in spectral_cube.  Mainly used for debugging.
-        Default: False
     huge_operations : boolean, optional
         Allow huge operations in spectral_cube.
         Default: True
+    perpixel : boolean, optional
+        Whether to calculate the rms per XY pixel instead of over whole image.
+        Set to True if you know there is a sensitivity variation across the image
+        but you don't have a gain cube - requires rms_fits and gain_fits unset.
+        Default: False
+    
     """
     np.seterr(divide='ignore', invalid='ignore')
     #
