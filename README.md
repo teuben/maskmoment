@@ -109,6 +109,21 @@ and then call it using
         Output the moment maps in K units if the cube is in Jy/beam units.
         Default: True
 
+### Files (outdir/outname)
+
+The following files are created:
+
+      outname.mom0.fits.gz       Moment-0
+      outname.mom1.fits.gz       Moment-1
+      outname.mom2.fits.gz       Moment-1
+      outname.emom0.fits.gz      Errors in Moment-0
+      outname.emom1.fits.gz      Errors in Moment-1
+      outname.emom2.fits.gz      Errors in Moment-2
+      outname.flux.csv           ECSV file with Velocity,Flux,FluxErr
+      outname.mask.fits.gz       mask cube of 0/1's where emission is
+      outname.ecube.fits.gz      Error cube
+
+
 ### Credits
 
 Base code was developed by Tony Wong in 2019-2020.  Hailin Wang assisted with scripting, testing, and debugging the code during development.
