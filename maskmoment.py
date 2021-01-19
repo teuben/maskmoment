@@ -260,8 +260,14 @@ def maskmoment(img_fits, gain_fits=None, rms_fits=None, mask_fits=None, outdir='
             print('Beam info:', image_cube.beam)
         else:
             print('WARNING: Beam info is missing')
+        peak1 = image_cube.max()
         image_cube = image_cube.to(u.K)
+        peak2 = image_cube.max()
+        print('Converting from Jy/beam to K: cube peak %s -> %s' % (str(peak1),str(peak2)))
         rms_cube = rms_cube.to(u.K)
+    else:
+        peak1 = image_cube.max()        
+        print('Keeping units: cube peak %s ' % str(peak1))
     dil_mskcub = image_cube.with_mask(dilatedmask > 0)
     dil_mskcub_mom0 = dil_mskcub.moment(order=0).to(image_cube.unit*u.km/u.s)
     if hasattr(dil_mskcub_mom0, 'unit'):
